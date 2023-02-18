@@ -1,0 +1,31 @@
+select
+	datepart(month, m.released_AsDate) MonthReleased,
+	datepart(year, m.released_AsDate) YearReleased,
+	count (1) Released
+from movie m
+where revenue >= 500000000
+group by datepart(month, m.released_AsDate),
+	datepart(year, m.released_AsDate)
+having count(1) >1
+order by count(1) desc
+
+select 
+	m.title,
+	p.person_name,
+	mc.character_name,
+	mc.cast_order
+from movie m
+	join movie_cast mc on m.movie_id = mc.movie_id
+	join person p on mc.person_id = p.person_id
+where m.title = 'Footloose'
+order by mc.cast_order
+
+select
+	m.title,
+	iif( max(l.language_name) = 'English', 'Yes', 'No') OriginallyEnglish
+from movie m
+	left join movie_languages ml on m.movie_id = ml.movie_id
+		and ml.language_role_id = 1
+	left join language l on ml.language_id = l.language_id
+		and l.language_name = 'English'
+group by m.title

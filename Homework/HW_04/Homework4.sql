@@ -1,0 +1,53 @@
+/*1. What are the top 10 highest grossing movies of 1987?*/
+select top 10
+	m.title,
+	(m.revenue - m.budget) gross
+from movie m 
+where datepart(year, m.released_AsDate) = 1987
+order by gross desc
+
+/*2. What are the movies that were originally in Spanish?*/
+---Query to see what spanish is called in the language table
+select 
+l.language_code,
+l.language_name
+from language l
+---Query to return all movies that were originally in spanish
+select
+	m.title,
+	iif( max(l.language_code) = 'es', 'Yes', 'No') OriginallySpanish
+from movie m
+	left join movie_languages ml on m.movie_id = ml.movie_id
+		and ml.language_role_id = 1
+	left join language l on ml.language_id = l.language_id
+		and l.language_code = 'es'
+where l.language_code = 'es'
+group by m.title
+
+/*3. What are the people names which have the same last name as yourself?*/
+select 
+p.person_name
+from person p 
+where trim(right(p.Person_Name, charindex(' ', p.Person_Name))) = 'Shaffer'
+
+/*4. What is the highest grossing movie that was released in June of any year?*/
+select top 1
+	m.title,
+	datepart(month, m.released_AsDate) MonthReleased,
+	(m.revenue - m.budget) gross
+from movie m
+where datepart(month, m.released_AsDate) = 6
+order by gross desc 
+
+/*5. Who was on crew of the movie with the highest budget?*/
+select
+	mc.person_id,
+	mc.job,
+	p.person_name,
+	m.title,
+	m.budget
+from movie m  
+	join movie_crew mc on m.movie_id = mc.movie_id
+	join person p on mc.person_id = p.person_id
+where m.budget = (select max(m.budget)from movie m) 
+order by m.budget desc

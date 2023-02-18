@@ -1,0 +1,74 @@
+---A new screen for our mobile app needs to display movies and their genres. Retrieve a list of “western” movies and all their associated 
+genres. Return the genres as a commo delimited list.
+select
+	m.title,
+	string_agg(g2.genre_name, ',') genres
+from genre g
+	join movie_genres mg on g.genre_id = mg.genre_id
+	join movie m on mg.movie_id = m.movie_id
+	join movie_genres mg2 on m.movie_id = mg2.movie_id
+	join genre g2 on mg2.genre_id = g2.genre_id
+where g.genre_name = 'western'
+group by m.title
+---Show all crew and cast for the movie “unforgiven” include relationship between people who were both cast and crew.
+select 
+	cast.person_name,
+	cast.character_name,
+	crew.person_name,
+	crew.job
+from
+	(select mc.movie_id,
+		mc.person_id,
+		mc.character_name,
+		p.person_name
+	from movie m
+		join movie_cast mc on m.movie_id = mc.movie_id
+		join person p on mc.person_id = p.person_id
+	where m.title = 'unforgiven') cast
+	full outer join
+		(select mc.movie_id,
+			mc.person_id,
+			mc.job,
+			p.person_name
+		from movie m
+			join movie_crew mc on m.movie_id = mc.movie_id
+			join person p on mc.person_id = p.person_id
+		where m.title = 'unforgiven') crew
+	on crew.person_id = cast.person_id
+---Compare the cast for ‘The Avengers’ with the cast of ‘Avengers: Age of Ultron’
+---Include Movie Title and Revenue
+---Include the Person Name and Character Name
+---Show cast which were in both movies on a single line with their character names.
+---Use common table expression(s) 
+---Will need a full outer join
+with mcp as (
+select
+	m.revenue,
+	m.title,
+	mc.person_id,
+	mc.character_name,
+	p.person_name
+from movie m
+	join movie_cast mc on m.movie_id = mc.movie_id
+	join person p on mc.person_id = p.person_id
+),
+avengers as (
+select *
+from mcp
+where mcp.title = 'The Avengers'
+),
+avengers2 as (
+select *
+from mcp
+where mcp.title = 'Avengers: Age of Ultron'
+)
+select avengers.title,
+	avengers.revenue,
+	avengers.person_name,
+	avengers.character_name,
+	avengers2.title,
+	avengers2.revenue,
+	avengers2.person_name,
+	avengers2.character_name
+from avengers
+	full outer join avengers2 on avengers.person_id = avengers2.person_id

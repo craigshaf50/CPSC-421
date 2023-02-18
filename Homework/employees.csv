@@ -1,0 +1,9 @@
+Employee, Employee Number, Email Address, Work Phone, Birthday,Home Phone,Mail Address 1,Mail Address 2,Mail City,Mail State,Mail Postal Code, Manager, Title, Managed Since
+Phil Pharmo,1, phil@gmail.com,5155551212, 1950-07-25,5155559517,123 Birch Street,,Des Moines,IA,50211, None, Owner, N/A
+Mark Pharmo,2, mark@outlook.com,5155558965, 1973-02-23,,123 Oak Street,,Des Moines,IA,50211, Phil Pharmo, Manager Store 1, 2000-01-01
+Stacy Pharmo,3, stacy@hotmail.com,5155556554, 1977-05-10,,123 Linden Street,,Des Moines,IA,50211, Phil Pharmo, Manager Store 2, 2002-02-23
+James Smith,2009, james@icloud.com,5155553131, 1983-01-04,,123 Gingko Street,,Des Moines,IA,50211, Mark Pharmo, Pharmacist, 2020-10-01
+Kate Jones,1980, kate@katesemail.com,515.781.9845, 1985-08-13,,123 Maple Street,,Des Moines,IA,50211, Mark Pharmo, Clerk, 2018-01-23
+Geneva Johnson,1230, geneva@gmail.com,5158569655, 1990-09-23,,123 Main Street,,Des Moines,IA,50211, Stacy Pharmo, Pharmacist, 2015-04-19
+Geneva Johnson,1230, geneva@gmail.com,5158569655, 1990-09-23,,123 Main Street,,Des Moines,IA,50211, Mark Pharmo, Pharmacist, 2015-04-19
+Phil Pharmo,2010,PhilPharmoIII@gmail.com,5158922323,10/14/2002,,123 Oak Street,,Des Moines,IA,50211, Mark Pharmo,Clerk, 2022-03-19
